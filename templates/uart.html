@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rpi X-tractor</title>
+
+    <link rel="stylesheet" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
+<script>
+    function showForm(event){
+        console.log(event)
+        var form = document.getElementById(event)
+        console.log(form.style.display);
+        if (form.style.display == "block"){
+            form.style.display = "none";
+        }else{
+            form.style.display = "block";
+        }
+    }
+</script>
+</head>
+<body>
+    <header>
+        <div class="topnav">
+            <a href="/">Home</a>
+            <a href="#news">Voltage Glitcher</a>
+            <a href="spi.html">SPI Flash Extractor</a>
+            <a class="active" href="uart.html">UART</a>
+
+        </div>
+    </header>
+    <main>
+    <div class="uart_options">
+        <button id="detect_baudrate" onclick="showForm('detect_baudrate_form')">Detect Baudrate</button>
+        <div id="detect_baudrate_form" class="none">
+            <form action="/detect_baudrate">
+     
+                <label for="sampling_rate">Sample Time</label>
+                <input type="text" name="sampling_rate" id="sampling_rate">
+                <label for="power_cycle_delay">Reboot Delay</label>
+                <input type="text" name="power_cycle_delay" id="power_cycle_delay">
+                <input type="submit">
+            </form>
+        </div>
+        <button onclick="showForm('check_uart_console')">Check for UART console</button>
+        <div id="check_uart_console" class="none">
+            <form action="/check_uart_console" method="get">
+                <label for="baud_rate">Baudrate </label>
+                <input type="text" name="baud_rate" id="baud_rate">
+                <input type="submit">
+            </form>
+        </div>
+        <button onclick="showForm('capture_boot_logs')">Capture Boot logs</button>
+        <div id="capture_boot_logs" class="none">
+            <form action="/capture_boot_logs">
+                <label for="baud_rate">Baudrate </label>
+                <input type="text" name="baud_rate" id="baud_rate">
+                <label for="sampling_rate">Sample Time</label>
+                <input type="text" name="sampling_rate" id="sampling_rate">
+                <label for="power_cycle_delay">Reboot Delay</label>
+                <input type="text" name="power_cycle_delay" id="power_cycle_delay">
+                <input type="submit">
+            </form>
+        </div>
+        <button><a href="/boot_log_analyse">Analyze Boot logs</a></button>
+    </div>
+
+    </main>
+    <footer>
+
+
+    </footer>
+</body>
+
+</html>
