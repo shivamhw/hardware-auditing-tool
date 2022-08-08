@@ -5,11 +5,11 @@ import sys
 from time import sleep, time
 from os import remove
 
-relay_pin = 26 
+relay_pin = 6
 baudrates = [9600, 115200, 4800]
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(relay_pin, GPIO.OUT)
-output_file = "baud_output"
+output_file = "uart_logs/baud_output"
 def check_baud_output(baud_rate, delay, power_delay):
 # turn off board
     GPIO.output(relay_pin, GPIO.LOW)
@@ -45,4 +45,4 @@ def main(sampling_time, power_cycle_delay):
     for rate in baudrates:
         check_baud_output(rate, int(sampling_time), int(power_cycle_delay))
 
-# main()
+# main(5, 5)

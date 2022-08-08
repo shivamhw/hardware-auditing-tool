@@ -3,7 +3,7 @@ import sys
 from time import sleep
 from os import remove
 
-output_file = "uart_bin_logs"
+output_file = "uart_logs/uart_bin_logs"
 bin_listing_cmds = ["ls", "ls /sbin", "ls .local", "ls /usr/bin", "ls /bin", "help", "h", "?"]
 
 

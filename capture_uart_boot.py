@@ -5,8 +5,8 @@ import sys
 from time import sleep, time
 from os import remove
 
-relay_pin = 26 
-output_file = "uart_boot_log"
+relay_pin = 6
+output_file = "uart_logs/uart_boot_log"
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(relay_pin, GPIO.OUT)
@@ -38,7 +38,7 @@ def check_baud_output(baud_rate, delay, power_delay):
         f.write(output)
     # print(len(output))
 
-def main(baud_rate, sampling_time, power_cycle_delay):
+def main(baud_rate, sampling_time, power_cycle_delay, output_file):
     try:
         remove(output_file)
     except:

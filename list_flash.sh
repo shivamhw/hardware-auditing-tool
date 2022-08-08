@@ -17,11 +17,11 @@ device_list=`$command`
 if [[ $device_list == *"No operations were specified"* ]]; then
     echo "debug : found devices"
 else
-    # echo "debug : no device attached"
-    echo "debug : found devices"
-    echo "vendor : GD"
-    echo "size : 2MB"
-    exit
+    echo "debug : no device attached"
+    # echo "debug : found devices"
+    # echo "vendor : GD"
+    # echo "size : 2MB"
+    # exit
 fi
 vendor_detail=`$command --flash-name | tail -1`
 flash_size=`$command --flash-size | tail -1`

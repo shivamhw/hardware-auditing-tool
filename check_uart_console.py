@@ -3,7 +3,7 @@ import sys
 from time import sleep
 from os import remove
 
-output_file = "uart_console_log"
+output_file = "uart_logs/uart_console_log"
 trigger_words = ["password", "username", "login", "invalid", "user"]
 def check_log_for_console(file):
     with open(output_file, "r") as f:

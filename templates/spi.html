@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% set cur_page = 'spi' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPI Flash Module</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/mainpage.css') }}">
+{% block main_body %}
     <script>
         const chk_btn = async () => {
             var text = document.getElementById("probe_result");
@@ -29,7 +24,9 @@
                 var dwn_btn = document.getElementById("after_extract_btn");
                 dwn_btn.style.display = "block";
                 var main_dwn = document.getElementById("download_firm_btn")
-                var red_url = `location.href = '/download_firm?filename=${filename.value}';`
+                var analysis_link = document.getElementById("analysis_link")
+                analysis_link.href = `/get_binwalk?file_name=${filename.value}.bin`
+                var red_url = `/download_firm?filename=${filename.value}`;
                 console.log(red_url)
                 main_dwn.onclick = function () {
                     location.href = red_url;
@@ -65,18 +62,6 @@
 
         }
     </script>
-</head>
-
-<body>
-    <header>
-        <div class="topnav">
-            <a href="/">Home</a>
-            <a href="#news">Voltage Glitcher</a>
-            <a class="active" href="#">SPI Flash Extractor</a>
-            <a href="uart.html">UART</a>
-
-        </div>
-    </header>
     <h1>SPI flash Extractor</h1>
     <div id="main_options">
         <fieldset>
@@ -100,10 +85,13 @@
         <p id="extract_result" style="visibility: hidden;"></p>
 
         <input type="button" onclick="get_firm()" value="Extract Firmware" id="final_button">
-        <div style="display: none;" id="after_extract_btn"><input type="button" value="Download Firmware"
-                id="download_firm_btn"><input type="button" value="Download decompresed version"><input type="button"
-                value="Analyse firmware"></div>
+        <div style="display: none;" id="after_extract_btn">
+            <input type="button" value="Download Firmware"
+                id="download_firm_btn">
+                <a id="analysis_link" href="">Analyze Firm</a>
+                <!-- <input type="button"
+                value="Analyse firmware"> -->
+            </div>
     </div>
-</body>
 
-</html>
+{% endblock %}

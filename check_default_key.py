@@ -3,7 +3,7 @@ import sys
 from time import sleep
 from os import remove
 
-output_file = "uart_boot_log"
+output_file = "uart_logs/uart_boot_log"
 trigger_words = ["press", "enter", "wait", "default", "key", "boot", "console"]
 
 

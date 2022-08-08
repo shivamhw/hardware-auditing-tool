@@ -4,7 +4,7 @@ import sys
 from time import sleep
 from os import remove
 
-output_file = "uart_bruteforce_log"
+output_file = "uart_logs/uart_bruteforce_log"
 combolist = "bruteforce_combo"
 
 def check_login(baud_rate, fail_key, cred):

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% set cur_page = "voltage-module" %}
+
+{% block main_body %}
+
+<div class="voltage_set_container">
+<form action="/set_volt" style="margin-top: 100px;">
+    <label for="freq">Frequency</label>
+    <input type="text" name="freq" id="freq">
+    <label for="channel">Channel</label>
+    <input type="text" name="channel" id="channel">
+    <input type="submit">
+</form>
+</div>
+{% endblock %}

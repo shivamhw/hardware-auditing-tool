@@ -10,6 +10,7 @@ elif [[ $# -gt 1 ]]; then
     exit
 fi
 
+echo "dump flash called"
 command=$command$speed
 device_list=`$command -r /home/pi/firm/test.bin`
 if [[ $device_list == *"Reading flash... done."* ]]; then
