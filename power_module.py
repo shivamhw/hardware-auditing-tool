@@ -4,25 +4,50 @@ from time import sleep
 
 class PowerMod(threading.Thread):
     def __init__(self, switching_pin, channel_pin):
-        self.delay = 10
+        # self.delay = 10
+        self.power_on = 1000
+        self.power_off = 1000
+        self.flg = True
         self.switching_pin = switching_pin
         self.channel_pin = channel_pin
         GPIO.setwarnings(False) # Ignore warning for now
         GPIO.setmode(GPIO.BCM) # Use physical pin numbering
-        GPIO.setup(channel_pin, GPIO.OUT, initial=GPIO.LOW) # Set pin 8 to be an output pin and set initial value to low (off)
+        GPIO.setup(channel_pin, GPIO.OUT, initial=GPIO.HIGH) # Set pin 8 to be an output pin and set initial value to low (off)
         GPIO.setup(switching_pin, GPIO.OUT, initial=GPIO.LOW) # Set pin 8 to be an output pin and set initial value to low (off)
         threading.Thread.__init__(self)
     
     def run(self) -> None:
         while 1:
-            GPIO.output(self.switching_pin, GPIO.HIGH)
-            sleep(self.delay/100)
-            GPIO.output(self.switching_pin,GPIO.LOW)
-            sleep(self.delay/100)
-            print("Power Delay is ", self.delay)
+            if self.flg:
+                GPIO.output(self.switching_pin, GPIO.HIGH)
+                sleep(self.power_on/100)
+            if self.flg:
+                GPIO.output(self.switching_pin,GPIO.LOW)
+                sleep(self.power_off/100)
+            # print("Power Delay on is ", self.power_on, " off", self.power_off)
 
     def set_delay(self, d):
-        self.delay=d
+        self.set_poweroff(d)
+        self.set_poweron(d)
+
+    def set_state(self, st):
+        self.flg = False
+        if st == 0:
+            GPIO.output(self.switching_pin,GPIO.LOW)
+        else:
+            GPIO.output(self.switching_pin,GPIO.HIGH)
+
+    def unset_state(self):
+        self.flg = True
+
+    def set_poweron(self, d):
+        GPIO.output(self.switching_pin,GPIO.HIGH)
+        self.power_on = d
+
+
+    def set_poweroff(self, d):
+        GPIO.output(self.switching_pin,GPIO.LOW)
+        self.power_off = d
 
     def set_channel(self, c):
         if c == 1:

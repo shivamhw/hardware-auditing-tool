@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -32,4 +32,15 @@
     </footer>
 </body>
 
-</html>
+</html> -->
+
+
+{% extends 'base.html' %}
+{% set cur_page = 'list_logs' %}
+{% block main_body %}
+div class="detect_baud_result">
+        <pre>
+        {{ result }}
+    </pre>
+    </div>
+{% endblock %}

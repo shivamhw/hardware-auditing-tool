@@ -53,12 +53,39 @@ def uart_log():
 
 @app.route("/set_volt")
 def volt_glitch():
+    power_thread.unset_state()
     freq = request.args.get("freq")
-    channel = request.args.get("channel")
-    print(f"setting frq {freq} delay {channel}")
     power_thread.set_delay(int(freq))
-    power_thread.set_channel(int(channel))
     return "OK"
+
+@app.route("/set_volt_custom")
+def volt_glitch_custom():
+    power_thread.unset_state()
+    pon = request.args.get("pon")
+    poff = request.args.get("poff")
+    print(f"setting on {pon} poff {poff}")
+    power_thread.set_poweroff(int(poff))
+    power_thread.set_poweron(int(pon))
+    return "OK _pon"
+
+@app.route("/set_channel")
+def volt_glitch_channel():
+    channel = request.args.get("channel")
+    power_thread.set_channel(int(channel))
+    return "OK Channel set"
+
+@app.route("/switch_power/<flg>")
+def switch_power(flg):
+    if flg == "0":
+        print("set of ")
+        power_thread.set_state(0)
+
+    else:
+        print("set on")
+        power_thread.set_state(1)
+        # power_thread.set_poweron(10000)
+    # power_thread.set_channel(int(channel))
+    return "OF q"
 
 @app.route("/check_uart_console")
 def uart_console():
@@ -74,11 +101,11 @@ def boot_log():
         check_default_key.output_file = "uart_logs/"+file_name
     imp = check_default_key.main()
     imp_output = "\n".join(imp)
-    output=""
-    with open("uart_logs/"+file_name, "r") as f:
-        for i in f:
-            output+=i
-    return render_template("string_analysis.html", data = output, invoked_data=imp_output)
+    # output=""
+    # with open("uart_logs/"+file_name, "r") as f:
+    #     for i in f:
+    #         output+=i
+    return render_template("string_analysis.html", invoked_data=imp_output)
 
 @app.route("/capture_boot_logs")
 def cap_boot():
@@ -86,7 +113,7 @@ def cap_boot():
     power_cycle = request.args.get("power_cycle_delay")
     baud_rate = request.args.get("baud_rate")
     output=""
-    capture_uart_boot.main(baud_rate, sampling_rate, power_cycle)
+    capture_uart_boot.main(baud_rate, sampling_rate, power_cycle, power_thread)
     with open(capture_uart_boot.output_file, "r") as f:
         for i in f:
             output+=i
@@ -110,7 +137,7 @@ def baud_detect():
     sampling_rate = request.args.get("sampling_rate")
     power_cycle_delay = request.args.get("power_cycle_delay")
     print(sampling_rate, power_cycle_delay, "baud detect")
-    detect_baud.main(sampling_rate, power_cycle_delay)
+    detect_baud.main(sampling_rate, power_cycle_delay, power_thread)
     bauds = ""
     with open(detect_baud.output_file, "r") as f:
         for i in f:
@@ -135,8 +162,8 @@ def down_firm():
 
 @app.route("/dump_firm")
 def dump_firm():
-    firm_name = request.args.get("filename", default = 'test.bin', type = str)
-    return helper.dump_firm_call("8000", firm_name)
+    firm_name = request.args.get("filename", default = 'test', type = str)
+    return helper.dump_firm_call("8000", firm_name+".bin", FIRM_DIR)
 
 
 

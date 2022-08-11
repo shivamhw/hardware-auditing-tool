@@ -12,11 +12,12 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(relay_pin, GPIO.OUT)
 
 
-def check_baud_output(baud_rate, delay, power_delay):
-    GPIO.output(relay_pin, GPIO.LOW)
+def check_baud_output(baud_rate, delay, power_delay, power_thread):
+    power_thread.set_state(0)
     sleep(power_delay)
     ser = serial.Serial("/dev/ttyS0", baud_rate)
-    GPIO.output(relay_pin, GPIO.HIGH)
+    # GPIO.output(relay_pin, GPIO.HIGH)
+    power_thread.set_state(1)
     start = time()
     output = ""
     while(True):
@@ -38,9 +39,9 @@ def check_baud_output(baud_rate, delay, power_delay):
         f.write(output)
     # print(len(output))
 
-def main(baud_rate, sampling_time, power_cycle_delay, output_file):
+def main(baud_rate, sampling_time, power_cycle_delay, power_thread):
     try:
         remove(output_file)
     except:
         print("no file")
-    check_baud_output(int(baud_rate), int(sampling_time), int(power_cycle_delay))
+    check_baud_output(int(baud_rate), int(sampling_time), int(power_cycle_delay), power_thread)

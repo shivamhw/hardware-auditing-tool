@@ -10,12 +10,12 @@ def list_device_call(speed):
     size = result[0]
     return size
 
-def dump_firm_call(speed, firm_name="test.bin"):
+def dump_firm_call(speed, firm_name, FIRM_DIR):
     print("starting dumping")
-    process = subprocess.Popen(["bash", "dump_flash.sh", speed], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    process = subprocess.Popen(["bash", "dump_flash.sh", speed, firm_name, FIRM_DIR], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     process.wait()
     result = process.communicate()
-    print("done dump firm call")
+    print("done dump firm call", result)
     if result[0] == "failed":
         return '{"error" : "error in dumping"}'
     return '{"data" : "success"}'

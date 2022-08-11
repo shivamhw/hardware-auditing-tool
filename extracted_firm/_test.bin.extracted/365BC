@@ -1,0 +1,155 @@
+
+&&*&&en**&**
+<td class=content>
+<p>Below is a detailed summary of your settings.
+Please print this page out, or write the information on a piece of paper, so you can configure the correct settings on your wireless client adapters.
+</p>
+<table id=sumpasswd class=formlisting style="width:590" align=center>
+<tr><td class='form_label_col' width='300px'>Modem Password&nbsp;:</td>
+<td id=tdpasswd></td></tr>
+</table>
+<table id=sumsntp class=formlisting style="width:590" align=center>
+<tr><td class=form_label_col width=300px>Time Settings&nbsp;:</td>
+<td id=tdtimestate>Enabled</td></tr>
+<tr id=trntpstate><td class=form_label_col width=300px>NTP State&nbsp;:</td>
+<td id=tdntpstate>Enabled</td></tr>
+<tr id=trntpmode><td class=form_label_col width=300px>Mode&nbsp;:</td>
+<td id=tdntpmode></td></tr>
+<tr id=trntpone><td class=form_label_col width=300px>NTP Server 1&nbsp;:</td>
+<td id=tdntpone></td></tr>
+<tr id=trntptwo><td class=form_label_col width=300px>NTP Server 2&nbsp;:</td>
+<td id=tdntptwo></td></tr>
+<tr id=trntpint><td class=form_label_col width=300px>Interval&nbsp;:</td>
+<td id=tdntpint></td></tr>
+<tr id=trtimezone><td class=form_label_col width=300px>Time Zone&nbsp;:</td>
+<td id=tdtimezone></td></tr>
+<tr id=trdststat><td class=form_label_col width=300px>Daylight&nbsp;:</td>
+<td id=tddststat></td></tr>
+</table>
+<table id=sumisp class=formlisting style="width:590" align=center>
+<tr><td class=form_label_col width=300px>VPI / VCI&nbsp;:</td>
+<td id=tdvpivci></td></tr>
+<tr><td class=form_label_col width=300px>Protocol&nbsp;:</td>
+<td id=tdprotocol>Bridge</td></tr>
+<tr><td class=form_label_col width=300px>Connection Type&nbsp;:</td>
+<td id=tdencapmode>VC-Mux</td></tr>
+<tr id=trusername><td class=form_label_col width=300px>Username&nbsp;:</td>
+<td id=tdusername></td></tr>
+<tr id=trpassword><td class=form_label_col width=300px>Password&nbsp;:</td>
+<td id=tdpassword></td></tr>
+<tr id=tripaddress><td class=form_label_col width=300px>IP Address&nbsp;:</td>
+<td id=tdipaddress></td></tr>
+<tr id=trsubnet><td class=form_label_col width=300px>Subnet Mask&nbsp;:</td>
+<td id=tdsubnet></td></tr>
+<tr id=trgw><td class=form_label_col width=300px>Default Gateway&nbsp;:</td>
+<td id=tdgw></td></tr>
+<tr id=trpridns><td class=form_label_col width=300px>Primary DNS Server&nbsp;:</td>
+<td id=tdpridns></td></tr>
+</table>
+<table id=tabwireless class=formlisting style="width:590" align=center>
+<tr><td class=form_label_col width=300px>Wireless Network&nbsp;:</td>
+<td id=tdwlstate>Disabled</td></tr>
+<tr id=trwlssid><td class=form_label_col width=300px>Wireless Network Name (SSID)&nbsp;:</td>
+<td id=tdwlssid></td></tr>
+<tr id=trwlvisibility><td class=form_label_col width=300px>Visibility Status&nbsp;:</td>
+<td id=tdwlvisibility></td></tr>
+<tr id=trwlEncryption><td class=form_label_col width=300px>Encryption&nbsp;:</td>
+<td id=tdwlEncryption>None</td></tr>
+<tr id=trwlkey><td id=tdkeyname class=form_label_col width=300px>WEP Key&nbsp;:</td>
+<td id=tdkeyval></td></tr>
+</table>
+<br>
+</td>
+</tr>
+</table>
+<br>
+<p align=center>
+<input type='button' value="Back" onClick='btnBack()' id='back'>
+<input type='submit' value="Apply" name="save">
+<input type='button' onClick='btnCancel()' value='Cancel'>
+<INPUT TYPE="hidden" NAME="submit.htm?status.htm" VALUE="Send">
+</p>
+</div>
+</form>
+<script type='text/javascript'>
+wizardFooter();
+</script>
+</blockquote>
+</body>
+</html>
+
+&*#@ledtest.htm@#*&2031
+<VWS_FUNCTION (void*)SendWebMetaStr();>
+<VWS_FUNCTION (void*)SendWebCssStr();>
+<title>Led Test</title>
+<SCRIPT>
+function stateChange()
+{
+document.led.action.value = 0;
+return true;
+}
+function ledSelect()
+{
+var state=document.led.state.value;
+var sel=document.led.ledselect.value;
+if(state=="start"){
+alert("Please start led test first!");
+return false;
+}
+if (sel==0){
+alert("Please select the led!");
+return false;
+}
+document.led.action.value = 1;
+return true;
+}
+</SCRIPT>
+</head>
+<body id="main_auto" topmargin="0" leftmargin="0" marginwidth="0" marginheight="0" alink="#000000" link="#000000" vlink="#000000" >
+<blockquote>
+<DIV align="left" style="padding-left:20px; padding-top:5px">
+<form action="form2Ledtest.cgi" method=POST name="led">
+<b>Led test</b><br><br>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td>led test</td>
+<td colspan=2><input type="submit" name="state" value="start" onclick="return stateChange()"></td>
+</tr>
+<tr>
+<td width="30%">led test set</td>
+<td width="35%">
+<select name="ledselect">
+<option value="0">Please select</option>
+<option value="1">power red</option>
+<option value="2">power green</option>
+<option value="3">dsl</option>
+<option value="4">internet red</option>
+<option value="5">internet green</option>
+<option value="6">lan 1</option>
+<option value="7">lan 2</option>
+<option value="8">lan 3</option>
+<option value="9">lan 4</option>
+<option value="10">wlan</option>
+<option value="11">wps green</option>
+<option value="12">wps red</option>
+<option value="13">wps yellow</option>
+<option value="15">all led on</option>
+<option value="16">all led off</option>
+<option value="17">all green led on</option>
+<option value="18">all red led on</option>
+</select>
+</td>
+<td><input type="submit" name="light" value="submit" onclick="return ledSelect()">
+</tr>
+</table>
+<br>
+<input type="hidden" name="action">
+<input type="hidden" name="submit.htm?ledtest.htm" value="Send">
+<script>
+<VWS_FUNCTION (void*)ledtestinitpage();>
+ </script>
+</form>
+</DIV>
+</blockquote>
+</body>
+</html>
